@@ -1,0 +1,43 @@
+.text-description h1{
+    text-align: center;
+}
+
+.input-description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#input-description {
+    padding: 15px 10px;
+    border-radius: 15px;
+    outline: none;
+    width: 20%;
+}
+
+#description {
+    font-size: 20px;
+    text-indent: 50px;
+    margin: 5% 15%;
+}
+
+#title {
+    padding: 50px;
+    text-align: center;
+    font-size: xxx-large;
+}
+
+#btn-cancel {
+    background-color: rgb(202, 16, 16);
+    color: white;
+    padding: 10px 15px;
+    margin: 15px;
+    border-radius: 50px;
+}
+
+#btn-ok {
+    background-color: rgb(33, 186, 69);
+    color: white;
+    padding: 10px 10px;
+    border-radius: 50px;
+}
