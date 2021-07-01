@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import "../css/details.css";
 import { get, updateDescription } from '../axios/controllers';
 import { singleEventsRoute } from '../axios/routes';
+import TodoList from '../components/TodoList';
 
 export default class details extends Component {
     constructor(props) {
@@ -67,12 +68,15 @@ export default class details extends Component {
     }
 
     renderDefaultView = () => {
-        return <div onDoubleClick={this.changeEditMode}>
+        return <div>
             <Navbar />
             <img id='bg-chart' alt="logo" src={"../imgs/bg-chart.jpg"}></img>
             <div className='text-description'>
                 <h1 id='title'>{this.state.event.company}</h1>
-                <p id='description'>{this.state.event.description}</p>
+                <p id='description' onDoubleClick={this.changeEditMode}>{this.state.event.description}</p>
+            </div>
+            <div className='todo-app'>
+                <TodoList />
             </div>
         </div>
     }
