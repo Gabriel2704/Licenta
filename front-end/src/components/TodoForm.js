@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 function TodoForm(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
-
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    inputRef.current.focus();
-  });
+  const [inputN, setInputN] = useState(props.edit ? props.edit.value : '');
 
   const handleChange = e => {
     setInput(e.target.value);
+  };
+
+  const handleChangeN = e => {
+    setInputN(e.target.value);
   };
 
   const handleSubmit = e => {
@@ -19,9 +18,11 @@ function TodoForm(props) {
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
       text: input,
-      
+      number: inputN
     });
+
     setInput('');
+    setInputN('');
   };
 
   return (
@@ -33,8 +34,17 @@ function TodoForm(props) {
             value={input}
             onChange={handleChange}
             name='text'
-            ref={inputRef}
             className='todo-input edit'
+          />
+          <input
+            placeholder='Add a priority'
+            value={inputN}
+            onChange={handleChangeN}
+            name='number'
+            className='todo-input'
+            type='number'
+            max='5'
+            min='1'
           />
           <button onClick={handleSubmit} className='todo-button edit'>
             Update
@@ -48,7 +58,16 @@ function TodoForm(props) {
             onChange={handleChange}
             name='text'
             className='todo-input'
-            ref={inputRef}
+          />
+          <input
+            placeholder='Add a priority'
+            value={inputN}
+            onChange={handleChangeN}
+            name='number'
+            className='todo-input'
+            type='number'
+            max='5'
+            min='1'
           />
           <button onClick={handleSubmit} className='todo-button'>
             Add todo
