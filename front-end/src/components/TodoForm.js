@@ -20,7 +20,7 @@ function TodoForm(props) {
       text: input,
       number: inputN
     });
-
+    
     setInput('');
     setInputN('');
   };

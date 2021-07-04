@@ -117,22 +117,27 @@
 
 .green-1 {
   background-color: rgb(33, 186, 69);
+  color: white;
 }
 
 .red-1 {
   background-color: rgb(238, 49, 49);
+  color: white;
 }
 
 .green-2 {
   background-color: rgb(49, 128, 53);
+  color: white;
 }
 
 .red-2 {
   background-color: rgb(177, 16, 16);
+  color: white;
 }
 
 .yellow {
   background-color: rgb(216, 208, 26);
+  color: white;
 }
 
 .icons {

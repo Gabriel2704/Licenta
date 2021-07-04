@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
+import { taskRoute } from '../axios/routes';
+import { postTask } from '../axios/controllers';
 
-function TodoList() {
-  const [todos, setTodos] = useState([]);
+function TodoList({ eveniment, taskuri }) {
+  let tasks = [];
+  for (let i = 0; i < taskuri.length; i++) {
+    tasks[i] = taskuri[i];
+  }
 
-  const addTodo = todo => {
+  const [todos, setTodos] = useState(tasks);
+
+  const addTodo = async todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       if (!todo.number) {
         return;
@@ -15,11 +22,18 @@ function TodoList() {
     const newTodos = [todo, ...todos];
 
     setTodos(newTodos);
+    try {
+      await postTask(taskRoute, { description: todo.text, priority: todo.number, idEv: eveniment.id });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      return;
+      if (!newValue.number) {
+        return;
+      }
     }
 
     setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));

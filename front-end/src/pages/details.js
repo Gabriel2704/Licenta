@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../components/Navbar';
 import "../css/details.css";
 import { get, updateDescription } from '../axios/controllers';
-import { singleEventsRoute } from '../axios/routes';
+import { singleEventsRoute, taskRoute } from '../axios/routes';
 import TodoList from '../components/TodoList';
 
 export default class details extends Component {
@@ -12,7 +12,8 @@ export default class details extends Component {
         this.state = {
             event: [],
             isInEditMode: false,
-            value: 'Text'
+            value: 'Text',
+            tasks:[]
         }
     }
 
@@ -21,6 +22,11 @@ export default class details extends Component {
             let aux = await get(singleEventsRoute, this.props.location.state.eventId);
             this.setState({
                 event: aux,
+            });
+
+            let tsk = await get(taskRoute, this.props.location.state.eventId);
+            this.setState({
+                tasks: tsk,
             });
         }
         catch (err) {
@@ -76,7 +82,7 @@ export default class details extends Component {
                 <p id='description' onDoubleClick={this.changeEditMode}>{this.state.event.description}</p>
             </div>
             <div className='todo-app'>
-                <TodoList />
+                <TodoList eveniment={this.state.event} taskuri={this.state.tasks} />
             </div>
         </div>
     }

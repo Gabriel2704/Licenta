@@ -4,6 +4,7 @@ const singleEvents = require('./single_events');
 const contestants = require('./contestants');
 const utils = require('./utils');
 const status = require('./status');
+const task = require('./task');
 
 const controller = {
     resetController,
@@ -11,7 +12,8 @@ const controller = {
     user,
     singleEvents,
     contestants,
-    status
+    status,
+    task
 };
 
 module.exports = controller;

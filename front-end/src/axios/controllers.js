@@ -143,4 +143,21 @@ async function updateDescription(url, item, name) {
     }
 }
 
-export { get, post, getEvents, postContestant, postEvent, deleteEvent, updateEvent, getStatus, updateStatus, getStatuses, updateDescription };
+async function postTask(url, item) {
+    try {
+        let newUrl = !item ? url : url + "/addTask";
+        return (await axios.post(
+            newUrl,
+            item,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )).data;
+    } catch (e) {
+        return e.response.data;
+    }
+}
+
+export { get, post, getEvents, postContestant, postEvent, deleteEvent, updateEvent, getStatus, updateStatus, getStatuses, updateDescription, postTask };
