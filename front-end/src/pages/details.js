@@ -13,7 +13,7 @@ export default class details extends Component {
             event: [],
             isInEditMode: false,
             value: 'Text',
-            tasks:[]
+            tasks: []
         }
     }
 

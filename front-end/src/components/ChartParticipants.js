@@ -3,7 +3,6 @@ import { Bar } from 'react-chartjs-2';
 
 const ChartParticipants = ({ evenimente, nrParticipanti }) => {
     let labels = [];
-
     let numbersParticipants = [];
 
     for (let i = 0; i < evenimente.length; i++) {

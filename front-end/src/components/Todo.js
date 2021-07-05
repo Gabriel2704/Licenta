@@ -11,7 +11,9 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
   });
 
   const submitUpdate = value => {
-    updateTodo(edit.id, value.text, value.number);
+    updateTodo(edit.id, value);
+
+    window.location.reload(false);
 
     setEdit({
       id: null,
@@ -28,16 +30,16 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
     <div
       className={
         todo.isComplete ?
-          todo.number === '1'
-            ? 'todo-row complete green-1' : todo.number === '2'
-              ? 'todo-row complete green-2' : todo.number === '3'
-                ? 'todo-row complete yellow' : todo.number === '4'
+          todo.priority === '1'
+            ? 'todo-row complete green-1' : todo.priority === '2'
+              ? 'todo-row complete green-2' : todo.priority === '3'
+                ? 'todo-row complete yellow' : todo.priority === '4'
                   ? 'todo-row complete red-1' : 'todo-row complete red-2'
           :
-          todo.number === '1'
-            ? 'todo-row green-1' : todo.number === '2'
-              ? 'todo-row green-2' : todo.number === '3'
-                ? 'todo-row yellow' : todo.number === '4'
+          todo.priority === '1'
+            ? 'todo-row green-1' : todo.priority === '2'
+              ? 'todo-row green-2' : todo.priority === '3'
+                ? 'todo-row yellow' : todo.priority === '4'
                   ? 'todo-row red-1' : 'todo-row red-2'
       }
       key={index}
@@ -46,7 +48,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
         key={todo.id}
         onClick={() => completeTodo(todo.id)}
       >
-        {todo.text}
+        {todo.description}
       </div>
       <div className='icons'>
         <RiCloseCircleLine
@@ -54,7 +56,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           className='delete-icon'
         />
         <TiEdit
-          onClick={() => setEdit({ id: todo.id, value: todo.text, number: todo.number })}
+          onClick={() => setEdit({ id: todo.id, value: todo.description })}
           className='edit-icon'
         />
       </div>

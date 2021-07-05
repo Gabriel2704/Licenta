@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
 import { taskRoute } from '../axios/routes';
-import { postTask } from '../axios/controllers';
+import { deleteTask, postTask, updateTask } from '../axios/controllers';
 
 function TodoList({ eveniment, taskuri }) {
-  let tasks = [];
-  for (let i = 0; i < taskuri.length; i++) {
-    tasks[i] = taskuri[i];
-  }
-
-  const [todos, setTodos] = useState(tasks);
+  const [todos, setTodos] = useState([]);
 
   const addTodo = async todo => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      if (!todo.number) {
+    if (!todo.description || /^\s*$/.test(todo.description)) {
+      if (!todo.priority) {
         return;
       }
     }
@@ -23,26 +18,40 @@ function TodoList({ eveniment, taskuri }) {
 
     setTodos(newTodos);
     try {
-      await postTask(taskRoute, { description: todo.text, priority: todo.number, idEv: eveniment.id });
+      await postTask(taskRoute, { description: todo.description, priority: todo.priority, idEv: eveniment.id });
     } catch (error) {
       console.log(error);
     }
   };
 
   const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
-      if (!newValue.number) {
+    if (!newValue.description || /^\s*$/.test(newValue.description)) {
+      if (!newValue.priority) {
         return;
       }
     }
 
     setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
+    
+    try {
+      updateTask(taskRoute, { description: newValue.description, priority: newValue.priority }, todoId);
+    }
+    catch (err) {
+      console.log(err);
+    }
   };
 
   const removeTodo = id => {
     const removedArr = [...todos].filter(todo => todo.id !== id);
 
     setTodos(removedArr);
+
+    try {
+      deleteTask(taskRoute, id);
+    } catch (err) {
+      console.log(err);
+    }
+    window.location.reload(false);
   };
 
   const completeTodo = id => {
@@ -52,6 +61,7 @@ function TodoList({ eveniment, taskuri }) {
       }
       return todo;
     });
+    
     setTodos(updatedTodos);
   };
 
@@ -60,7 +70,7 @@ function TodoList({ eveniment, taskuri }) {
       <h1 style={{ color: "white" }}>What's the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
       <Todo
-        todos={todos}
+        todos={taskuri}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}

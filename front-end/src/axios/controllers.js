@@ -160,4 +160,32 @@ async function postTask(url, item) {
     }
 }
 
-export { get, post, getEvents, postContestant, postEvent, deleteEvent, updateEvent, getStatus, updateStatus, getStatuses, updateDescription, postTask };
+async function updateTask(url, item, id) {
+    try {
+        let newUrl = !item ? url : url + "/updateTask/" + id;
+        return (await axios.put(
+            newUrl,
+            item,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )).data;
+    } catch (e) {
+        return e.response.data;
+    }
+}
+
+async function deleteTask(url, id) {
+    try {
+        await axios.delete(url + "/deleteTask/" + id);
+    } catch (e) {
+        return e.response.data;
+    }
+}
+
+export {
+    get, post, getEvents, postContestant, postEvent, deleteEvent, updateEvent,
+    getStatus, updateStatus, getStatuses, updateDescription, postTask, updateTask, deleteTask
+};

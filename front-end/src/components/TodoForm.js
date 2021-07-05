@@ -17,12 +17,13 @@ function TodoForm(props) {
 
     props.onSubmit({
       id: Math.floor(Math.random() * 10000),
-      text: input,
-      number: inputN
+      description: input,
+      priority: inputN
     });
     
     setInput('');
     setInputN('');
+    window.location.reload(false);
   };
 
   return (
@@ -33,15 +34,15 @@ function TodoForm(props) {
             placeholder='Update your item'
             value={input}
             onChange={handleChange}
-            name='text'
+            name='description'
             className='todo-input edit'
           />
           <input
             placeholder='Add a priority'
             value={inputN}
             onChange={handleChangeN}
-            name='number'
-            className='todo-input'
+            name='priority'
+            className='todo-input edit'
             type='number'
             max='5'
             min='1'
@@ -56,14 +57,14 @@ function TodoForm(props) {
             placeholder='Add a todo'
             value={input}
             onChange={handleChange}
-            name='text'
+            name='description'
             className='todo-input'
           />
           <input
             placeholder='Add a priority'
             value={inputN}
             onChange={handleChangeN}
-            name='number'
+            name='priority'
             className='todo-input'
             type='number'
             max='5'
